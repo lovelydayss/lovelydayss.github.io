@@ -1,28 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://lovelydayss.github.io</id>
+    <id>http://localhost:4000</id>
     <title>Gridea</title>
-    <updated>2022-11-02T02:42:13.578Z</updated>
+    <updated>2022-11-02T05:19:09.728Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://lovelydayss.github.io"/>
-    <link rel="self" href="https://lovelydayss.github.io/atom.xml"/>
+    <link rel="alternate" href="http://localhost:4000"/>
+    <link rel="self" href="http://localhost:4000/atom.xml"/>
     <subtitle>温故而知新</subtitle>
-    <logo>https://lovelydayss.github.io/images/avatar.png</logo>
-    <icon>https://lovelydayss.github.io/favicon.ico</icon>
+    <logo>http://localhost:4000/images/avatar.png</logo>
+    <icon>http://localhost:4000/favicon.ico</icon>
     <rights>All rights reserved 2022, Gridea</rights>
     <entry>
-        <title type="html"><![CDATA[okok]]></title>
-        <id>https://lovelydayss.github.io/post/okok/</id>
-        <link href="https://lovelydayss.github.io/post/okok/">
+        <title type="html"><![CDATA[梨米特复变函数&积分变换速成课笔记]]></title>
+        <id>http://localhost:4000/post/li-mi-te-fu-bian-han-shu-su-cheng-ke-bi-ji/</id>
+        <link href="http://localhost:4000/post/li-mi-te-fu-bian-han-shu-su-cheng-ke-bi-ji/">
         </link>
-        <updated>2022-11-01T14:53:35.000Z</updated>
-        <content type="html"><![CDATA[<p>1223143914138245901 82435</p>
+        <updated>2022-11-02T03:23:47.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="class">class</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Git & Github 常用操作及问题整理]]></title>
+        <id>http://localhost:4000/post/git-and-github-chang-yong-cao-zuo-ji-wen-ti-zheng-li/</id>
+        <link href="http://localhost:4000/post/git-and-github-chang-yong-cao-zuo-ji-wen-ti-zheng-li/">
+        </link>
+        <updated>2022-11-02T03:11:16.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="分支合并">分支合并</h2>
+<pre><code>git merge -s recursive -X theirs --allow-unrelated-histories  origin/Gridea
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Gridea 配置及手动上传]]></title>
+        <id>http://localhost:4000/post/gridea-shang-chuan-github-zhong-yin-shang-chuan-shi-bai-dao-zhi-git-ban-ben-hun-luan-jie-jue/</id>
+        <link href="http://localhost:4000/post/gridea-shang-chuan-github-zhong-yin-shang-chuan-shi-bai-dao-zhi-git-ban-ben-hun-luan-jie-jue/">
+        </link>
+        <updated>2022-11-02T03:02:01.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="qw">qw</h1>
 ]]></content>
     </entry>
     <entry>
         <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://lovelydayss.github.io/post/hello-gridea/</id>
-        <link href="https://lovelydayss.github.io/post/hello-gridea/">
+        <id>http://localhost:4000/post/hello-gridea/</id>
+        <link href="http://localhost:4000/post/hello-gridea/">
         </link>
         <updated>2018-12-11T16:00:00.000Z</updated>
         <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
