@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1667463336886">
+<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1667481180650">
 <link rel="stylesheet" href="http://localhost:4000/styles/main.css">
 
 
@@ -24,12 +24,13 @@
 
 
 
-    <meta name="description" content="基本问题描述
+    <meta name="description" content=" 
+基本问题描述
 因为 GitHub 网络不稳定问题，在使用 Gridea 同步进行上传时会存在上传失败情况
 
+
 解决方案
-GitHub Pages +Grideaas 功能简介
-简单理解，GitHub Pages 即为每一个 GitHub 用户..." />
+简单理解，GitHub Pages 即为每一个 GitHub 用户提供一个免费的网址，该网址使用 GitHub Pa..." />
     <meta name="keywords" content="Gridea" />
   </head>
   <body>
@@ -39,7 +40,7 @@ GitHub Pages +Grideaas 功能简介
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="http://localhost:4000">
-        <img src="http://localhost:4000/images/avatar.png?v=1667463336886" class="site-logo">
+        <img src="http://localhost:4000/images/avatar.png?v=1667481180650" class="site-logo">
         <h1 class="site-title">Gridea</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -108,22 +109,51 @@ GitHub Pages +Grideaas 功能简介
               </div>
             
             <div class="post-content" v-pre>
-              <h1 id="基本问题描述">基本问题描述</h1>
+               <br>
+<h2 id="基本问题描述">基本问题描述</h2>
 <p>因为 GitHub 网络不稳定问题，在使用 Gridea 同步进行上传时会存在上传失败情况<br>
 <img src="http://localhost:4000/post-images/1667460589946.jpg" alt="" loading="lazy"></p>
-<h1 id="解决方案">解决方案</h1>
-<h2 id="github-pages-grideaas-功能简介">GitHub Pages +Grideaas 功能简介</h2>
-<p>简单理解，GitHub Pages 即为每一个 GitHub 用户提供一个免费的网址，该网址使用 GitHub Pages 对应库中的资源进行生成页面。在博客制作过程中 Gridea 扮演了将用户制作的 Markdown文档渲染成 GitHub Pages 所需资源的角色。</p>
-<h2 id="gridea-预览及同步功能">Gridea 预览及同步功能</h2>
-<p>从 Gridea 功能出发，查阅<a href="https://github.com/getgridea/gridea/releases"> Gridea 项目文档</a> 发现，Gridea 在 0.9.3 版本更新中对博客本地存储结构做了改变。<br>
-<img src="http://localhost:4000/post-images/1667461371927.PNG" alt="" loading="lazy"><br>
-尝试发现，Gridea 中预览功能会将博客 Markdown 进行渲染，渲染后文件存储在文件夹～/.gridea/output 中，该文件夹中内容即为 GitHub Pages 所需资源。<br>
-<img src="http://localhost:4000/post-images/1667461701999.PNG" alt="" loading="lazy"><br>
-而同步功能则会在渲染基础上，根据系统预设远程链接信息重新创建 Git 库，同时将其整合成一个 commit 进行提交。</p>
-<p>由于同步功能因为网络不稳定问题会存在失败（同时提交时会覆盖此前 commit 记录），故考虑不使用同步功能，仅将 Gridea 客户端作为一个静态渲染器（预览功能），再渲染完成后采用 Git 进行手动提交。</p>
-<h2 id="gridea-基础配置参考">Gridea 基础配置参考</h2>
-<p><a href="https://zhuanlan.zhihu.com/p/71681116">Gridea 上手教程——小白也可以用的 GitHub Pages 搭建工具</a></p>
-<h2 id="gridea-链接问题参考">Gridea 链接问题参考</h2>
+<br>
+<h2 id="解决方案">解决方案</h2>
+<p>简单理解，GitHub Pages 即为每一个 GitHub 用户提供一个免费的网址，该网址使用 GitHub Pages 对应库中的资源进行生成页面。在博客制作过程中 Gridea 扮演了将用户制作的 Markdown 文档渲染成 GitHub Pages 所需资源的角色。</p>
+<p>查阅<a href="https://github.com/getgridea/gridea/releases"> Gridea 项目文档</a> 发现，Gridea 在 0.9.3 版本更新中对博客本地存储结构做了改变。<br>
+<img src="http://localhost:4000/post-images/1667461371927.PNG" alt="" loading="lazy"></p>
+<p>即 Gridea 渲染后文件将会存储在文件夹 ～/.gridea/output 中：其文件夹内容：<br>
+<img src="http://localhost:4000/post-images/1667461701999.PNG" alt="" loading="lazy"></p>
+<p>对 Gridea 功能进行尝试，发现其预览功能会对当前文件进行渲染，并将渲染后资源存储于文件夹 ～/.gridea/output 中（该操作会清空文件夹中原有 Git 库信息）。而同步功能则会在渲染基础上，根据系统预设远程链接信息重新创建 Git 库，同时将其整合成一个 commit 提交至远程 GitHub 仓库。</p>
+<p>由于同步功能因为网络不稳定问题会存在上传失败情况（同时提交时会覆盖此前 commit 记录），故考虑不使用同步功能，只使用预览功能执行渲染（即仅将 Gridea 客户端作为静态渲染器），待渲染完成后再对文件夹 ～/.gridea/output 中文件资源使用 <a href="https://git-scm.com/">Git</a>  手动提交至远程仓库。</p>
+<br>
+<h2 id="手动上传过程">手动上传过程</h2>
+<p>首先点击预览按键进行渲染，渲染后生成文件位于 ～/.gridea/output 文件夹<br>
+<img src="http://localhost:4000/post-images/1667476510195.PNG" alt="" loading="lazy"></p>
+<p>此后使用 Git 进行手动上传，使用 VS code 打开～/.gridea/output 文件夹，此后选择 终端 -&gt; 新建终端打开终端。（此处使用 VS code 终端进行操作，其他命令行工具亦可）<br>
+<img src="http://localhost:4000/post-images/1667476810635.PNG" alt="" loading="lazy"></p>
+<p>创建本地 Git 库，并将资源推送到本地库当前分支（此处 xx 即为该次提交名称）</p>
+<pre><code class="language-powershell">    git init            
+    git add .    
+    git commit -m &quot;xx&quot;          
+</code></pre>
+<p>链接远程 GitHub 库 (此处 ~ 指代 GitHub 库名称)，此处可能需要进行登录操作</p>
+<pre><code class="language-powershell">    git remote add  origin  ~.git     
+</code></pre>
+<p>重命名当前分支，此处我将更新的分支统一命名为 Gridea，其余命名亦可</p>
+<pre><code class="language-powershell">    git branch -m master Gridea     
+</code></pre>
+<p>拉取远程库中最新版本，并将其设为当前分支</p>
+<pre><code class="language-powershell">    git fetch origin master:master
+    git checkout 'master'   
+</code></pre>
+<p>对本地分支进行合并，将 Gridea 分支（本地最新分支）合并进 master 分支（远端拉取得到分支），此处采用 theirs 合并策略，即当出现冲突时以 Gridea 分支（本地最新分支）内容为准进行修改</p>
+<pre><code class="language-powershell">    git merge -s recursive -X theirs --allow-unrelated-histories  Gridea   
+</code></pre>
+<p>提交至远端库</p>
+<pre><code class="language-powershell">    git push -u origin master  
+</code></pre>
+<p>至此，博客博文的手动上传已经完成，至于如何使用 Gridea + GitHub Pages 构建博客，已经由很多的博客做过了，此处不再赘述。详情可参考 <a href="https://zhuanlan.zhihu.com/p/71681116">Gridea 上手教程——小白也可以用的 GitHub Pages 搭建工具</a></p>
+<br>
+<br>
+<br>
+<h2 id="参考资料">参考资料</h2>
 <p><a href="https://sonatta.top/post/Ux6xKOeOx/">Gridea 同步失败？谈谈我的解决办法</a></p>
 
             </div>
