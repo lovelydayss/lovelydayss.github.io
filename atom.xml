@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>http://localhost:4000</id>
     <title>Gridea</title>
-    <updated>2022-11-02T05:19:09.728Z</updated>
+    <updated>2022-11-03T08:15:38.670Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="http://localhost:4000"/>
     <link rel="self" href="http://localhost:4000/atom.xml"/>
@@ -36,7 +36,23 @@
         <link href="http://localhost:4000/post/gridea-shang-chuan-github-zhong-yin-shang-chuan-shi-bai-dao-zhi-git-ban-ben-hun-luan-jie-jue/">
         </link>
         <updated>2022-11-02T03:02:01.000Z</updated>
-        <content type="html"><![CDATA[<h1 id="qw">qw</h1>
+        <content type="html"><![CDATA[<h1 id="基本问题描述">基本问题描述</h1>
+<p>因为 GitHub 网络不稳定问题，在使用 Gridea 同步进行上传时会存在上传失败情况<br>
+<img src="http://localhost:4000/post-images/1667460589946.jpg" alt="" loading="lazy"></p>
+<h1 id="解决方案">解决方案</h1>
+<h2 id="github-pages-grideaas-功能简介">GitHub Pages +Grideaas 功能简介</h2>
+<p>简单理解，GitHub Pages 即为每一个 GitHub 用户提供一个免费的网址，该网址使用 GitHub Pages 对应库中的资源进行生成页面。在博客制作过程中 Gridea 扮演了将用户制作的 Markdown文档渲染成 GitHub Pages 所需资源的角色。</p>
+<h2 id="gridea-预览及同步功能">Gridea 预览及同步功能</h2>
+<p>从 Gridea 功能出发，查阅<a href="https://github.com/getgridea/gridea/releases"> Gridea 项目文档</a> 发现，Gridea 在 0.9.3 版本更新中对博客本地存储结构做了改变。<br>
+<img src="http://localhost:4000/post-images/1667461371927.PNG" alt="" loading="lazy"><br>
+尝试发现，Gridea 中预览功能会将博客 Markdown 进行渲染，渲染后文件存储在文件夹～/.gridea/output 中，该文件夹中内容即为 GitHub Pages 所需资源。<br>
+<img src="http://localhost:4000/post-images/1667461701999.PNG" alt="" loading="lazy"><br>
+而同步功能则会在渲染基础上，根据系统预设远程链接信息重新创建 Git 库，同时将其整合成一个 commit 进行提交。</p>
+<p>由于同步功能因为网络不稳定问题会存在失败（同时提交时会覆盖此前 commit 记录），故考虑不使用同步功能，仅将 Gridea 客户端作为一个静态渲染器（预览功能），再渲染完成后采用 Git 进行手动提交。</p>
+<h2 id="gridea-基础配置参考">Gridea 基础配置参考</h2>
+<p><a href="https://zhuanlan.zhihu.com/p/71681116">Gridea 上手教程——小白也可以用的 GitHub Pages 搭建工具</a></p>
+<h2 id="gridea-链接问题参考">Gridea 链接问题参考</h2>
+<p><a href="https://sonatta.top/post/Ux6xKOeOx/">Gridea 同步失败？谈谈我的解决办法</a></p>
 ]]></content>
     </entry>
     <entry>
