@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>http://localhost:4000</id>
+    <title>Gridea</title>
+    <updated>2022-11-03T13:13:03.754Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="http://localhost:4000"/>
+    <link rel="self" href="http://localhost:4000/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>http://localhost:4000/images/avatar.png</logo>
+    <icon>http://localhost:4000/favicon.ico</icon>
+    <rights>All rights reserved 2022, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[梨米特复变函数&积分变换速成课笔记]]></title>
+        <id>http://localhost:4000/post/li-mi-te-fu-bian-han-shu-su-cheng-ke-bi-ji/</id>
+        <link href="http://localhost:4000/post/li-mi-te-fu-bian-han-shu-su-cheng-ke-bi-ji/">
+        </link>
+        <updated>2022-11-02T03:23:47.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="class">class</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Git & Github 常用操作及问题整理]]></title>
+        <id>http://localhost:4000/post/git-and-github-chang-yong-cao-zuo-ji-wen-ti-zheng-li/</id>
+        <link href="http://localhost:4000/post/git-and-github-chang-yong-cao-zuo-ji-wen-ti-zheng-li/">
+        </link>
+        <updated>2022-11-02T03:11:16.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="分支合并">分支合并</h2>
+<pre><code>git merge -s recursive -X theirs --allow-unrelated-histories  origin/Gridea
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Gridea 配置及手动上传]]></title>
+        <id>http://localhost:4000/post/gridea-shang-chuan-github-zhong-yin-shang-chuan-shi-bai-dao-zhi-git-ban-ben-hun-luan-jie-jue/</id>
+        <link href="http://localhost:4000/post/gridea-shang-chuan-github-zhong-yin-shang-chuan-shi-bai-dao-zhi-git-ban-ben-hun-luan-jie-jue/">
+        </link>
+        <updated>2022-11-02T03:02:01.000Z</updated>
+        <content type="html"><![CDATA[ <br>
+<h2 id="基本问题描述">基本问题描述</h2>
+<p>因为 GitHub 网络不稳定问题，在使用 Gridea 同步进行上传时会存在上传失败情况<br>
+<img src="http://localhost:4000/post-images/1667460589946.jpg" alt="" loading="lazy"></p>
+<br>
+<h2 id="解决方案">解决方案</h2>
+<p>简单理解，GitHub Pages 即为每一个 GitHub 用户提供一个免费的网址，该网址使用 GitHub Pages 对应库中的资源进行生成页面。在博客制作过程中 Gridea 扮演了将用户制作的 Markdown 文档渲染成 GitHub Pages 所需资源的角色。</p>
+<p>查阅<a href="https://github.com/getgridea/gridea/releases"> Gridea 项目文档</a> 发现，Gridea 在 0.9.3 版本更新中对博客本地存储结构做了改变。<br>
+<img src="http://localhost:4000/post-images/1667461371927.PNG" alt="" loading="lazy"></p>
+<p>即 Gridea 渲染后文件将会存储在文件夹 ～/.gridea/output 中：其文件夹内容：<br>
+<img src="http://localhost:4000/post-images/1667461701999.PNG" alt="" loading="lazy"></p>
+<p>对 Gridea 功能进行尝试，发现其预览功能会对当前文件进行渲染，并将渲染后资源存储于文件夹 ～/.gridea/output 中（该操作会清空文件夹中原有 Git 库信息）。而同步功能则会在渲染基础上，根据系统预设远程链接信息重新创建 Git 库，同时将其整合成一个 commit 提交至远程 GitHub 仓库。</p>
+<p>由于同步功能因为网络不稳定问题会存在上传失败情况（同时提交时会覆盖此前 commit 记录），故考虑不使用同步功能，只使用预览功能执行渲染（即仅将 Gridea 客户端作为静态渲染器），待渲染完成后再对文件夹 ～/.gridea/output 中文件资源使用 <a href="https://git-scm.com/">Git</a>  手动提交至远程仓库。</p>
+<br>
+<h2 id="手动上传过程">手动上传过程</h2>
+<p>首先点击预览按键进行渲染，渲染后生成文件位于 ～/.gridea/output 文件夹<br>
+<img src="http://localhost:4000/post-images/1667476510195.PNG" alt="" loading="lazy"></p>
+<p>此后使用 Git 进行手动上传，使用 VS code 打开～/.gridea/output 文件夹，此后选择 终端 -&gt; 新建终端打开终端。（此处使用 VS code 终端进行操作，其他命令行工具亦可）<br>
+<img src="http://localhost:4000/post-images/1667476810635.PNG" alt="" loading="lazy"></p>
+<p>创建本地 Git 库，并将资源推送到本地库当前分支（此处 xx 即为该次提交名称）</p>
+<pre><code class="language-powershell">    git init            
+    git add .    
+    git commit -m &quot;xx&quot;          
+</code></pre>
+<p>链接远程 GitHub 库 (此处 ~ 指代 GitHub 库名称)，此处可能需要进行登录操作</p>
+<pre><code class="language-powershell">    git remote add  origin  ~.git     
+</code></pre>
+<p>重命名当前分支，此处我将更新的分支统一命名为 Gridea，其余命名亦可</p>
+<pre><code class="language-powershell">    git branch -m master Gridea     
+</code></pre>
+<p>拉取远程库中最新版本，并将其设为当前分支</p>
+<pre><code class="language-powershell">    git fetch origin master:master
+    git checkout 'master'   
+</code></pre>
+<p>对本地分支进行合并，将 Gridea 分支（本地最新分支）合并进 master 分支（远端拉取得到分支），此处采用 theirs 合并策略，即当出现冲突时以 Gridea 分支（本地最新分支）内容为准进行修改</p>
+<pre><code class="language-powershell">    git merge -s recursive -X theirs --allow-unrelated-histories  Gridea   
+</code></pre>
+<p>提交至远端库</p>
+<pre><code class="language-powershell">    git push -u origin master  
+</code></pre>
+<p>至此，博客博文的手动上传已经完成，至于如何使用 Gridea + GitHub Pages 构建博客，已经由很多的博客做过了，此处不再赘述。详情可参考 <a href="https://zhuanlan.zhihu.com/p/71681116">Gridea 上手教程——小白也可以用的 GitHub Pages 搭建工具</a></p>
+<br>
+<br>
+<br>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://sonatta.top/post/Ux6xKOeOx/">Gridea 同步失败？谈谈我的解决办法</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>http://localhost:4000/post/hello-gridea/</id>
+        <link href="http://localhost:4000/post/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="https://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>
