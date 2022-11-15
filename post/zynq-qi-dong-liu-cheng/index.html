@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>ZYNQ-7020 启动引导过程 | lovelydayss</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://lovelydayss.github.io/favicon.ico?v=1668520489778">
+<link rel="stylesheet" href="https://lovelydayss.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="
+zynq 7000 Soc 启动流程
+
+zynq 7000 Soc 启动分为 BOOT ROM 、 First Stage Bootloader（FSBL）、Second Stage Boot loader 三个阶段
+开发板上电后，zyn..." />
+    <meta name="keywords" content="FPGA" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://lovelydayss.github.io">
+        <img src="https://lovelydayss.github.io/images/avatar.png?v=1668520489778" class="site-logo">
+        <h1 class="site-title">lovelydayss</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://lovelydayss.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">ZYNQ-7020 启动引导过程</h2>
+            <div class="post-date">2022-11-15</div>
+            
+            <div class="post-content" v-pre>
+              <br>
+<h2 id="zynq-7000-soc-启动流程">zynq 7000 Soc 启动流程</h2>
+<ul>
+<li>zynq 7000 Soc 启动分为 BOOT ROM 、 First Stage Bootloader（FSBL）、Second Stage Boot loader 三个阶段</li>
+<li>开发板上电后，zynq 会首先执行片内 BOOT ROM 程序，通过读取 BOOT MODE 寄存器来判断是哪一种启动方式 (SD card/QSPI Flash/JTAG)</li>
+<li>待确定启动方式后，Boot ROM 从相应的启动设备 (SD Card/QSPI Flash) 加载 First Stage Bootloader (FSBL) 到 On Chip Memory(OCM) RAM，并且将执行权交付给 FSBL</li>
+</ul>
+<h2 id="boot-rom-阶段">BOOT ROM 阶段</h2>
+<h2 id="fsbl-阶段">FSBL 阶段</h2>
+<h3 id="fsbl-功能">FSBL 功能</h3>
+<h3 id="各设备sd-cardqspi-flashjtagfsbl-流程">各设备（SD Card/QSPI Flash/JTAG）FSBL 流程</h3>
+<h2 id="ssbl-阶段">SSBL 阶段</h2>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://blog.csdn.net/main_476/article/details/119534329">zynq启动模式详解及启动过程详解</a><br>
+<a href="https://zhuanlan.zhihu.com/p/384895423">Zynq启动引导过程</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://lovelydayss.github.io/tag/OVfGKK_ss/" class="tag">
+                    FPGA
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://lovelydayss.github.io/post/bp-shen-jing-wang-luo-de-cshi-xian/">
+                  <h3 class="post-title">
+                    BP 神经网络的 C++实现 (待完成)
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'abf19466ee80fd305fee',
+        clientSecret: '038a99cd18bc65921203a992cb39d0d2d7463bfd',
+        repo: 'lovelydayss.github.io',
+        owner: 'lovelydayss',
+        admin: ['lovelydayss'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>
