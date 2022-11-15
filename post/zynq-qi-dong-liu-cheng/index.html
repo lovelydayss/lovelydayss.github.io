@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>关于 | Gridea</title>
+<title>ZYNQ-7020 启动流程 | Gridea</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
@@ -24,14 +24,10 @@
 
 
 
-    <meta name="description" content="
-欢迎来到我的小站呀，很高兴遇见你！🤝
+    <meta name="description" content="zynq 7000 Soc 启动流程
 
-🏠 关于本站
-👨‍💻 博主是谁
-⛹ 兴趣爱好
-📬 联系我呀
-..." />
+zynq 7000 Soc 启动分为 BOOT ROM 、 First Stage Bootloader（FSBL）、Second Stage Boot loader 三个阶段
+开发板上电后，zynq..." />
     <meta name="keywords" content="" />
   </head>
   <body>
@@ -103,20 +99,34 @@
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">关于</h2>
-            <div class="post-date">2019-01-25</div>
+            <h2 class="post-title">ZYNQ-7020 启动流程</h2>
+            <div class="post-date">2022-11-15</div>
             
             <div class="post-content" v-pre>
-              <blockquote>
-<p>欢迎来到我的小站呀，很高兴遇见你！🤝</p>
-</blockquote>
-<h2 id="关于本站">🏠 关于本站</h2>
-<h2 id="博主是谁">👨‍💻 博主是谁</h2>
-<h2 id="兴趣爱好">⛹ 兴趣爱好</h2>
-<h2 id="联系我呀">📬 联系我呀</h2>
+              <h3 id="zynq-7000-soc-启动流程">zynq 7000 Soc 启动流程</h3>
+<ul>
+<li>zynq 7000 Soc 启动分为 BOOT ROM 、 First Stage Bootloader（FSBL）、Second Stage Boot loader 三个阶段</li>
+<li>开发板上电后，zynq 会首先执行片内 BOOT ROM 程序，通过读取 BOOT MODE 寄存器来判断是哪一种启动方式 (SD card/QSPI Flash/JTAG)</li>
+<li>待确定启动方式后，Boot ROM 从相应的启动设备 (SD Card/QSPI Flash) 加载 First Stage Bootloader (FSBL) 到 On Chip Memory(OCM) RAM，并且将执行权交付给 FSBL</li>
+</ul>
+<h3 id="fsbl-功能">FSBL 功能</h3>
+<h3 id="各设备sd-cardqspi-flashjtagfsbl-流程">各设备（SD Card/QSPI Flash/JTAG）FSBL 流程</h3>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://blog.csdn.net/zhoudengqing/article/details/45581931">Zynq 开发板FPGA比特流文件下载方式</a><br>
+<a href="https://www.cnblogs.com/ylsm-kb/p/9456534.html">Zynq系列FPGA如何固化bit文件到QSPI_Flash</a><br>
+<a href="https://blog.csdn.net/main_476/article/details/119534329">zynq启动模式详解及启动过程详解</a></p>
 
             </div>
             
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://lovelydayss.github.io/post/bp-shen-jing-wang-luo-de-cshi-xian/">
+                  <h3 class="post-title">
+                    BP 神经网络的 C++实现
+                  </h3>
+                </a>
+              </div>
             
 
             

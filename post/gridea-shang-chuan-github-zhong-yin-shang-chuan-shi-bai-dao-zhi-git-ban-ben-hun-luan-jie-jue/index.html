@@ -8,8 +8,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="http://localhost:4000/favicon.ico?v=1667481180650">
-<link rel="stylesheet" href="http://localhost:4000/styles/main.css">
+<link rel="shortcut icon" href="https://lovelydayss.github.io/favicon.ico?v=1668515891984">
+<link rel="stylesheet" href="https://lovelydayss.github.io/styles/main.css">
 
 
   
@@ -39,8 +39,8 @@
       <div class="sidebar" :class="{ 'full-height': menuVisible }">
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
-      <a class="site-title-container" href="http://localhost:4000">
-        <img src="http://localhost:4000/images/avatar.png?v=1667481180650" class="site-logo">
+      <a class="site-title-container" href="https://lovelydayss.github.io">
+        <img src="https://lovelydayss.github.io/images/avatar.png?v=1668515891984" class="site-logo">
         <h1 class="site-title">Gridea</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -93,7 +93,7 @@
       温故而知新
     </div>
     <div class="site-footer">
-      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="http://localhost:4000/atom.xml" target="_blank">RSS</a>
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://lovelydayss.github.io/atom.xml" target="_blank">RSS</a>
     </div>
   </div>
 </div>
@@ -105,29 +105,29 @@
             <h2 class="post-title">Gridea 配置及手动上传</h2>
             <div class="post-date">2022-11-02</div>
             
-              <div class="feature-container" style="background-image: url('http://localhost:4000/post-images/gridea-shang-chuan-github-zhong-yin-shang-chuan-shi-bai-dao-zhi-git-ban-ben-hun-luan-jie-jue.png')">
+              <div class="feature-container" style="background-image: url('https://lovelydayss.github.io/post-images/gridea-shang-chuan-github-zhong-yin-shang-chuan-shi-bai-dao-zhi-git-ban-ben-hun-luan-jie-jue.png')">
               </div>
             
             <div class="post-content" v-pre>
                <br>
 <h2 id="基本问题描述">基本问题描述</h2>
 <p>因为 GitHub 网络不稳定问题，在使用 Gridea 同步进行上传时会存在上传失败情况<br>
-<img src="http://localhost:4000/post-images/1667460589946.jpg" alt="" loading="lazy"></p>
+<img src="https://lovelydayss.github.io/post-images/1667460589946.jpg" alt="" loading="lazy"></p>
 <br>
 <h2 id="解决方案">解决方案</h2>
 <p>简单理解，GitHub Pages 即为每一个 GitHub 用户提供一个免费的网址，该网址使用 GitHub Pages 对应库中的资源进行生成页面。在博客制作过程中 Gridea 扮演了将用户制作的 Markdown 文档渲染成 GitHub Pages 所需资源的角色。</p>
 <p>查阅<a href="https://github.com/getgridea/gridea/releases"> Gridea 项目文档</a> 发现，Gridea 在 0.9.3 版本更新中对博客本地存储结构做了改变。<br>
-<img src="http://localhost:4000/post-images/1667461371927.PNG" alt="" loading="lazy"></p>
+<img src="https://lovelydayss.github.io/post-images/1667461371927.PNG" alt="" loading="lazy"></p>
 <p>即 Gridea 渲染后文件将会存储在文件夹 ～/.gridea/output 中：其文件夹内容：<br>
-<img src="http://localhost:4000/post-images/1667461701999.PNG" alt="" loading="lazy"></p>
+<img src="https://lovelydayss.github.io/post-images/1667461701999.PNG" alt="" loading="lazy"></p>
 <p>对 Gridea 功能进行尝试，发现其预览功能会对当前文件进行渲染，并将渲染后资源存储于文件夹 ～/.gridea/output 中（该操作会清空文件夹中原有 Git 库信息）。而同步功能则会在渲染基础上，根据系统预设远程链接信息重新创建 Git 库，同时将其整合成一个 commit 提交至远程 GitHub 仓库。</p>
 <p>由于同步功能因为网络不稳定问题会存在上传失败情况（同时提交时会覆盖此前 commit 记录），故考虑不使用同步功能，只使用预览功能执行渲染（即仅将 Gridea 客户端作为静态渲染器），待渲染完成后再对文件夹 ～/.gridea/output 中文件资源使用 <a href="https://git-scm.com/">Git</a>  手动提交至远程仓库。</p>
 <br>
 <h2 id="手动上传过程">手动上传过程</h2>
 <p>首先点击预览按键进行渲染，渲染后生成文件位于 ～/.gridea/output 文件夹<br>
-<img src="http://localhost:4000/post-images/1667476510195.PNG" alt="" loading="lazy"></p>
+<img src="https://lovelydayss.github.io/post-images/1667476510195.PNG" alt="" loading="lazy"></p>
 <p>此后使用 Git 进行手动上传，使用 VS code 打开～/.gridea/output 文件夹，此后选择 终端 -&gt; 新建终端打开终端。（此处使用 VS code 终端进行操作，其他命令行工具亦可）<br>
-<img src="http://localhost:4000/post-images/1667476810635.PNG" alt="" loading="lazy"></p>
+<img src="https://lovelydayss.github.io/post-images/1667476810635.PNG" alt="" loading="lazy"></p>
 <p>创建本地 Git 库，并将资源推送到本地库当前分支（此处 xx 即为该次提交名称）</p>
 <pre><code class="language-powershell">    git init            
     git add .    
@@ -149,7 +149,11 @@
 <p>提交至远端库</p>
 <pre><code class="language-powershell">    git push -u origin master  
 </code></pre>
-<p>至此，博客博文的手动上传已经完成，至于如何使用 Gridea + GitHub Pages 构建博客，已经由很多的博客做过了，此处不再赘述。详情可参考 <a href="https://zhuanlan.zhihu.com/p/71681116">Gridea 上手教程——小白也可以用的 GitHub Pages 搭建工具</a></p>
+<p>输出参考<br>
+<img src="https://lovelydayss.github.io/post-images/1667482074363.png" alt="" loading="lazy"><br>
+<img src="https://lovelydayss.github.io/post-images/1667482125438.png" alt="" loading="lazy"></p>
+<br>
+<p>至此，手动上传已经完成，至于如何使用 Gridea + GitHub Pages 构建博客，已经由很多的博客做过了，此处不再赘述。详情可参考 <a href="https://zhuanlan.zhihu.com/p/71681116">Gridea 上手教程——小白也可以用的 GitHub Pages 搭建工具</a></p>
 <br>
 <br>
 <br>
@@ -160,7 +164,7 @@
             
               <div class="tag-container">
                 
-                  <a href="http://localhost:4000/tag/JdHJ8kspy/" class="tag">
+                  <a href="https://lovelydayss.github.io/tag/JdHJ8kspy/" class="tag">
                     Gridea
                   </a>
                 
@@ -169,7 +173,7 @@
             
               <div class="next-post">
                 <div class="next">下一篇</div>
-                <a href="http://localhost:4000/post/hello-gridea/">
+                <a href="https://lovelydayss.github.io/post/hello-gridea/">
                   <h3 class="post-title">
                     Hello Gridea
                   </h3>
