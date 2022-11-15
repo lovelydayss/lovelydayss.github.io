@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" >
 
-<title>FPGA 开发基本流程（Vivado + Modelsim） | Gridea</title>
+<title>FPGA 开发基本流程（Vivado + Modelsim） | lovelydayss</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://lovelydayss.github.io/favicon.ico?v=1668515891984">
+<link rel="shortcut icon" href="https://lovelydayss.github.io/favicon.ico?v=1668520489778">
 <link rel="stylesheet" href="https://lovelydayss.github.io/styles/main.css">
 
 
@@ -43,8 +43,8 @@ RTL..." />
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://lovelydayss.github.io">
-        <img src="https://lovelydayss.github.io/images/avatar.png?v=1668515891984" class="site-logo">
-        <h1 class="site-title">Gridea</h1>
+        <img src="https://lovelydayss.github.io/images/avatar.png?v=1668520489778" class="site-logo">
+        <h1 class="site-title">lovelydayss</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
         <div class="line"></div>
@@ -218,7 +218,7 @@ RTL..." />
 <br>
 <h2 id="下载比特流文件至开发板">下载比特流文件至开发板</h2>
 <p>在纯 FPGA 开发中使用 JTAG 将比特流文件下载进行调试即可。zynq 启动模式及具<br>
-体流程详见另一篇博客 [zynq 启动流程] (https://lovelydayss.github.io/)</p>
+体流程详见另一篇博客 [zynq 启动流程] (https://lovelydayss.github.io/post/zynq-qi-dong-liu-cheng/)</p>
 <p>选择 Flow Navigator 中的 Open Hardware Manager，开始比特流文件的生成。<br>
 <img src="https://lovelydayss.github.io/post-images/1668500862297.PNG" alt="" loading="lazy"></p>
 <p>此后使用 Xlinx 下载器将电脑和开发板 JTAG 接口连接起来，设置开发板启动模式为 JTAG ，通电启动。此后选择 Hardware Manager 中的 Auto Connect 选项即可完成链接。<br>
@@ -246,7 +246,7 @@ RTL..." />
                 <div class="next">下一篇</div>
                 <a href="https://lovelydayss.github.io/post/git-ji-ben-yuan-li-ji-kai-fa-liu-cheng/">
                   <h3 class="post-title">
-                    Git 基本原理及开发流程
+                    Git 基本原理及项目开发流程 (待完成)
                   </h3>
                 </a>
               </div>
@@ -280,6 +280,11 @@ var app = new Vue({
 
 </script>
 
+
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
 
 
 

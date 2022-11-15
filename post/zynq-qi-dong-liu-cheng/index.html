@@ -3,12 +3,12 @@
   <head>
     <meta charset="utf-8" >
 
-<title>ZYNQ-7020 启动流程 | Gridea</title>
+<title>ZYNQ-7020 启动引导过程 | lovelydayss</title>
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://lovelydayss.github.io/favicon.ico?v=1668515891984">
+<link rel="shortcut icon" href="https://lovelydayss.github.io/favicon.ico?v=1668520489778">
 <link rel="stylesheet" href="https://lovelydayss.github.io/styles/main.css">
 
 
@@ -24,11 +24,12 @@
 
 
 
-    <meta name="description" content="zynq 7000 Soc 启动流程
+    <meta name="description" content="
+zynq 7000 Soc 启动流程
 
 zynq 7000 Soc 启动分为 BOOT ROM 、 First Stage Bootloader（FSBL）、Second Stage Boot loader 三个阶段
-开发板上电后，zynq..." />
-    <meta name="keywords" content="" />
+开发板上电后，zyn..." />
+    <meta name="keywords" content="FPGA" />
   </head>
   <body>
     <div id="app" class="main">
@@ -37,8 +38,8 @@ zynq 7000 Soc 启动分为 BOOT ROM 、 First Stage Bootloader（FSBL）、Secon
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://lovelydayss.github.io">
-        <img src="https://lovelydayss.github.io/images/avatar.png?v=1668515891984" class="site-logo">
-        <h1 class="site-title">Gridea</h1>
+        <img src="https://lovelydayss.github.io/images/avatar.png?v=1668520489778" class="site-logo">
+        <h1 class="site-title">lovelydayss</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
         <div class="line"></div>
@@ -99,31 +100,42 @@ zynq 7000 Soc 启动分为 BOOT ROM 、 First Stage Bootloader（FSBL）、Secon
       <div class="main-container">
         <div class="content-container" data-aos="fade-up">
           <div class="post-detail">
-            <h2 class="post-title">ZYNQ-7020 启动流程</h2>
+            <h2 class="post-title">ZYNQ-7020 启动引导过程</h2>
             <div class="post-date">2022-11-15</div>
             
             <div class="post-content" v-pre>
-              <h3 id="zynq-7000-soc-启动流程">zynq 7000 Soc 启动流程</h3>
+              <br>
+<h2 id="zynq-7000-soc-启动流程">zynq 7000 Soc 启动流程</h2>
 <ul>
 <li>zynq 7000 Soc 启动分为 BOOT ROM 、 First Stage Bootloader（FSBL）、Second Stage Boot loader 三个阶段</li>
 <li>开发板上电后，zynq 会首先执行片内 BOOT ROM 程序，通过读取 BOOT MODE 寄存器来判断是哪一种启动方式 (SD card/QSPI Flash/JTAG)</li>
 <li>待确定启动方式后，Boot ROM 从相应的启动设备 (SD Card/QSPI Flash) 加载 First Stage Bootloader (FSBL) 到 On Chip Memory(OCM) RAM，并且将执行权交付给 FSBL</li>
 </ul>
+<h2 id="boot-rom-阶段">BOOT ROM 阶段</h2>
+<h2 id="fsbl-阶段">FSBL 阶段</h2>
 <h3 id="fsbl-功能">FSBL 功能</h3>
 <h3 id="各设备sd-cardqspi-flashjtagfsbl-流程">各设备（SD Card/QSPI Flash/JTAG）FSBL 流程</h3>
+<h2 id="ssbl-阶段">SSBL 阶段</h2>
 <h2 id="参考资料">参考资料</h2>
-<p><a href="https://blog.csdn.net/zhoudengqing/article/details/45581931">Zynq 开发板FPGA比特流文件下载方式</a><br>
-<a href="https://www.cnblogs.com/ylsm-kb/p/9456534.html">Zynq系列FPGA如何固化bit文件到QSPI_Flash</a><br>
-<a href="https://blog.csdn.net/main_476/article/details/119534329">zynq启动模式详解及启动过程详解</a></p>
+<p><a href="https://blog.csdn.net/main_476/article/details/119534329">zynq启动模式详解及启动过程详解</a><br>
+<a href="https://zhuanlan.zhihu.com/p/384895423">Zynq启动引导过程</a></p>
 
             </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://lovelydayss.github.io/tag/OVfGKK_ss/" class="tag">
+                    FPGA
+                  </a>
+                
+              </div>
             
             
               <div class="next-post">
                 <div class="next">下一篇</div>
                 <a href="https://lovelydayss.github.io/post/bp-shen-jing-wang-luo-de-cshi-xian/">
                   <h3 class="post-title">
-                    BP 神经网络的 C++实现
+                    BP 神经网络的 C++实现 (待完成)
                   </h3>
                 </a>
               </div>
@@ -157,6 +169,11 @@ var app = new Vue({
 
 </script>
 
+
+  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
+  <script>
+    hljs.initHighlightingOnLoad()
+  </script>
 
 
 

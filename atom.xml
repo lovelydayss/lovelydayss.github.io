@@ -1,37 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://lovelydayss.github.io</id>
-    <title>Gridea</title>
-    <updated>2022-11-15T12:38:16.420Z</updated>
+    <title>lovelydayss</title>
+    <updated>2022-11-15T14:05:32.548Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://lovelydayss.github.io"/>
     <link rel="self" href="https://lovelydayss.github.io/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://lovelydayss.github.io/images/avatar.png</logo>
     <icon>https://lovelydayss.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2022, Gridea</rights>
+    <rights>All rights reserved 2022, lovelydayss</rights>
     <entry>
-        <title type="html"><![CDATA[ZYNQ-7020 启动流程]]></title>
+        <title type="html"><![CDATA[Makefile 基础 (待完成)]]></title>
+        <id>https://lovelydayss.github.io/post/makefile/</id>
+        <link href="https://lovelydayss.github.io/post/makefile/">
+        </link>
+        <updated>2022-11-15T13:10:18.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="makefile">makefile</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ZYNQ-7020 启动引导过程]]></title>
         <id>https://lovelydayss.github.io/post/zynq-qi-dong-liu-cheng/</id>
         <link href="https://lovelydayss.github.io/post/zynq-qi-dong-liu-cheng/">
         </link>
         <updated>2022-11-15T05:52:31.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="zynq-7000-soc-启动流程">zynq 7000 Soc 启动流程</h3>
+        <content type="html"><![CDATA[<br>
+<h2 id="zynq-7000-soc-启动流程">zynq 7000 Soc 启动流程</h2>
 <ul>
 <li>zynq 7000 Soc 启动分为 BOOT ROM 、 First Stage Bootloader（FSBL）、Second Stage Boot loader 三个阶段</li>
 <li>开发板上电后，zynq 会首先执行片内 BOOT ROM 程序，通过读取 BOOT MODE 寄存器来判断是哪一种启动方式 (SD card/QSPI Flash/JTAG)</li>
 <li>待确定启动方式后，Boot ROM 从相应的启动设备 (SD Card/QSPI Flash) 加载 First Stage Bootloader (FSBL) 到 On Chip Memory(OCM) RAM，并且将执行权交付给 FSBL</li>
 </ul>
+<h2 id="boot-rom-阶段">BOOT ROM 阶段</h2>
+<h2 id="fsbl-阶段">FSBL 阶段</h2>
 <h3 id="fsbl-功能">FSBL 功能</h3>
 <h3 id="各设备sd-cardqspi-flashjtagfsbl-流程">各设备（SD Card/QSPI Flash/JTAG）FSBL 流程</h3>
+<h2 id="ssbl-阶段">SSBL 阶段</h2>
 <h2 id="参考资料">参考资料</h2>
-<p><a href="https://blog.csdn.net/zhoudengqing/article/details/45581931">Zynq 开发板FPGA比特流文件下载方式</a><br>
-<a href="https://www.cnblogs.com/ylsm-kb/p/9456534.html">Zynq系列FPGA如何固化bit文件到QSPI_Flash</a><br>
-<a href="https://blog.csdn.net/main_476/article/details/119534329">zynq启动模式详解及启动过程详解</a></p>
+<p><a href="https://blog.csdn.net/main_476/article/details/119534329">zynq启动模式详解及启动过程详解</a><br>
+<a href="https://zhuanlan.zhihu.com/p/384895423">Zynq启动引导过程</a></p>
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[BP 神经网络的 C++实现]]></title>
+        <title type="html"><![CDATA[BP 神经网络的 C++实现 (待完成)]]></title>
         <id>https://lovelydayss.github.io/post/bp-shen-jing-wang-luo-de-cshi-xian/</id>
         <link href="https://lovelydayss.github.io/post/bp-shen-jing-wang-luo-de-cshi-xian/">
         </link>
@@ -40,7 +52,7 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Linux c/c++ 开发基础]]></title>
+        <title type="html"><![CDATA[Linux c/c++ 开发基础 (待完成)]]></title>
         <id>https://lovelydayss.github.io/post/linux-cc-kai-fa-ji-chu/</id>
         <link href="https://lovelydayss.github.io/post/linux-cc-kai-fa-ji-chu/">
         </link>
@@ -163,7 +175,7 @@
 <br>
 <h2 id="下载比特流文件至开发板">下载比特流文件至开发板</h2>
 <p>在纯 FPGA 开发中使用 JTAG 将比特流文件下载进行调试即可。zynq 启动模式及具<br>
-体流程详见另一篇博客 [zynq 启动流程] (https://lovelydayss.github.io/)</p>
+体流程详见另一篇博客 [zynq 启动流程] (https://lovelydayss.github.io/post/zynq-qi-dong-liu-cheng/)</p>
 <p>选择 Flow Navigator 中的 Open Hardware Manager，开始比特流文件的生成。<br>
 <img src="https://lovelydayss.github.io/post-images/1668500862297.PNG" alt="" loading="lazy"></p>
 <p>此后使用 Xlinx 下载器将电脑和开发板 JTAG 接口连接起来，设置开发板启动模式为 JTAG ，通电启动。此后选择 Hardware Manager 中的 Auto Connect 选项即可完成链接。<br>
@@ -174,7 +186,7 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Git 基本原理及开发流程]]></title>
+        <title type="html"><![CDATA[Git 基本原理及项目开发流程 (待完成)]]></title>
         <id>https://lovelydayss.github.io/post/git-ji-ben-yuan-li-ji-kai-fa-liu-cheng/</id>
         <link href="https://lovelydayss.github.io/post/git-ji-ben-yuan-li-ji-kai-fa-liu-cheng/">
         </link>
@@ -183,7 +195,7 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Markdown 基本操作]]></title>
+        <title type="html"><![CDATA[Markdown 基本操作 (待完成)]]></title>
         <id>https://lovelydayss.github.io/post/markdown-ji-ben-cao-zuo/</id>
         <link href="https://lovelydayss.github.io/post/markdown-ji-ben-cao-zuo/">
         </link>
@@ -192,7 +204,7 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[梨米特复变函数&积分变换速成课笔记]]></title>
+        <title type="html"><![CDATA[梨米特复变函数&积分变换速成课笔记 (待完成)]]></title>
         <id>https://lovelydayss.github.io/post/li-mi-te-fu-bian-han-shu-su-cheng-ke-bi-ji/</id>
         <link href="https://lovelydayss.github.io/post/li-mi-te-fu-bian-han-shu-su-cheng-ke-bi-ji/">
         </link>
@@ -201,7 +213,7 @@
 ]]></content>
     </entry>
     <entry>
-        <title type="html"><![CDATA[Git & Github 常用操作及问题整理]]></title>
+        <title type="html"><![CDATA[Git & Github 常用操作及问题整理 (待完成)]]></title>
         <id>https://lovelydayss.github.io/post/git-and-github-chang-yong-cao-zuo-ji-wen-ti-zheng-li/</id>
         <link href="https://lovelydayss.github.io/post/git-and-github-chang-yong-cao-zuo-ji-wen-ti-zheng-li/">
         </link>
@@ -237,12 +249,17 @@
 <img src="https://lovelydayss.github.io/post-images/1667461701999.PNG" alt="" loading="lazy"></p>
 <p>对 Gridea 功能进行尝试，发现其预览功能会对当前文件进行渲染，并将渲染后资源存储于文件夹 ～/.gridea/output 中（该操作会清空文件夹中原有 Git 库信息）。而同步功能则会在渲染基础上，根据系统预设远程链接信息重新创建 Git 库，同时将其整合成一个 commit 提交至远程 GitHub 仓库。</p>
 <p>由于同步功能因为网络不稳定问题会存在上传失败情况（同时提交时会覆盖此前 commit 记录），故考虑不使用同步功能，只使用预览功能执行渲染（即仅将 Gridea 客户端作为静态渲染器），待渲染完成后再对文件夹 ～/.gridea/output 中文件资源使用 <a href="https://git-scm.com/">Git</a>  手动提交至远程仓库。</p>
+<p><strong>更新：后续发现使用预览功能时，Gridea 渲染得到页面中会使用本地 url，从而导致在GitHub Pages 博客中因各跳转链接为本地 url 而无法正常跳转到各子页面，故在使用时仍需选择同步功能进行渲染，为防止意料之外的上传成功，此处需在选择同步按钮进行渲染时断开网络或直接修改远程设置中令牌为错误令牌</strong></p>
 <br>
 <h2 id="手动上传过程">手动上传过程</h2>
 <p>首先点击预览按键进行渲染，渲染后生成文件位于 ～/.gridea/output 文件夹<br>
 <img src="https://lovelydayss.github.io/post-images/1667476510195.PNG" alt="" loading="lazy"></p>
 <p>此后使用 Git 进行手动上传，使用 VS code 打开～/.gridea/output 文件夹，此后选择 终端 -&gt; 新建终端打开终端。（此处使用 VS code 终端进行操作，其他命令行工具亦可）<br>
 <img src="https://lovelydayss.github.io/post-images/1667476810635.PNG" alt="" loading="lazy"></p>
+<p><strong>更新：由于使用同步功能会在 output 文件夹下创建 Git 仓库，故此处应先删除现有本地库后再重新进行初始化</strong></p>
+<p>执行命令行语句删除本地仓库，即删除 output/.git 文件夹（此处为 win10 powershell 指令操作）</p>
+<pre><code class="language-powershell">    Remove-item ./.git
+</code></pre>
 <p>创建本地 Git 库，并将资源推送到本地库当前分支（此处 xx 即为该次提交名称）</p>
 <pre><code class="language-powershell">    git init            
     git add .    
@@ -274,38 +291,6 @@
 <br>
 <h2 id="参考资料">参考资料</h2>
 <p><a href="https://sonatta.top/post/Ux6xKOeOx/">Gridea 同步失败？谈谈我的解决办法</a></p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Hello Gridea]]></title>
-        <id>https://lovelydayss.github.io/post/hello-gridea/</id>
-        <link href="https://lovelydayss.github.io/post/hello-gridea/">
-        </link>
-        <updated>2018-12-11T16:00:00.000Z</updated>
-        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-<!-- more -->
-<p><a href="https://github.com/getgridea/gridea">Github</a><br>
-<a href="https://gridea.dev/">Gridea 主页</a><br>
-<a href="https://fehey.com/">示例网站</a></p>
-<h2 id="特性">特性👇</h2>
-<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
-<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
-<p>🏷️  你可以对文章进行标签分组</p>
-<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
-<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
-<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
-<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
-<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
-<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
-<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
-<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
-<p>未来，它一定会成为你离不开的伙伴</p>
-<p>尽情发挥你的才华吧！</p>
-<p>😘 Enjoy~</p>
 ]]></content>
     </entry>
 </feed>
