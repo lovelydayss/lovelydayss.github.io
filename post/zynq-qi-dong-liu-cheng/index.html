@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>ZYNQ 启动引导过程 | lovelydayss</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://lovelydayss.github.io/favicon.ico?v=1668674398879">
+<link rel="stylesheet" href="https://lovelydayss.github.io/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <!--<meta name="description" content="
+ZYNQ Soc 启动基本流程
+根据 Xilinx ZYNQ 官方文档， ZYNQ Soc 启动主要经过如下：
+
+预配置阶段（Pre-configuration stage）
+配置阶段（Configuration stage）
+
+BOOT..." /> -->
+    <meta name="keywords" content="ZYNQ,Linux,FPGA" />
+
+    <script src="https://lovelydayss.github.io/styles/static/js/jquery/jquery_3.6.0.js"></script>
+    <script src="https://lovelydayss.github.io/styles/static/js/post.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://lovelydayss.github.io/styles/static/css/post.css">
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://lovelydayss.github.io">
+        <img src="https://lovelydayss.github.io/images/avatar.png?v=1668674398879" class="site-logo">
+        <h1 class="site-title">lovelydayss</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      温故而知新
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://lovelydayss.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">ZYNQ 启动引导过程</h2>
+            <div class="post-date">2022-11-15</div>
+            
+            <div class="post-content" v-pre>
+              <br>
+<h2 id="zynq-soc-启动基本流程">ZYNQ Soc 启动基本流程</h2>
+<p>根据 Xilinx ZYNQ 官方文档， ZYNQ Soc 启动主要经过如下：</p>
+<ul>
+<li>预配置阶段（Pre-configuration stage）</li>
+<li>配置阶段（Configuration stage）
+<ul>
+<li>BOOT ROM 阶段</li>
+<li>First Stage Bootloader（FSBL）阶段</li>
+<li>Second Stage Boot loader（SSBL）阶段</li>
+</ul>
+</li>
+<li>后配置阶段（Post-configuration stage）（即 SSBL 阶段）</li>
+</ul>
+<p>其流程大体可用如下框图描述：<br>
+<img src="https://lovelydayss.github.io/post-images/1668664479396.png" alt="" loading="lazy"></p>
+<br>
+<h2 id="预配置阶段">预配置阶段</h2>
+<p>ZYNQ Soc 的预配置阶段由 PMU（Platform Management Unit，平台管理单元）控制，主要用于管理模块的复位和唤醒，其相关代码保存在 PMU ROM 中。此外，在预配置阶段也需要进行 CSU（configuration security unit，配置安全单元）的复位。</p>
+<h3 id="pmu-操作">PMU 操作</h3>
+<ul>
+<li>归零低压域 LPD（low power domain）寄存器</li>
+<li>归零全电源域 FPD（full power domain）寄存器</li>
+<li>归零 PMU 的 RAM</li>
+<li>归零 PMU 处理器的 TLB 内存</li>
+<li>检查 LPD、AUX、专用IO等区域电压</li>
+<li>归零 CSU、LPD、FPD 的内存区</li>
+</ul>
+<h3 id="基本流程">基本流程</h3>
+<ul>
+<li>POR （Power-on reset）上电， PMU 初始化</li>
+<li>执行 PMU 的 ROM 中的预处理代码
+<ul>
+<li>初始化 PS Sysmon 单元和启动所需要的 PLL</li>
+<li>清除PMU RAM 和 CSU RAM区域</li>
+<li>验证 PLL 锁</li>
+<li>利用 PS Sysmon 验证 LPD、AUX、I/O 的范围</li>
+<li>清除低压域寄存器（LPD）和全电源域寄存器（FPD）</li>
+</ul>
+</li>
+<li>执行 CSU 复位</li>
+<li>加载 CSU ROM ，进入配置阶段</li>
+</ul>
+<p><strong>在 ZYNQ Soc 启动之后，PMU 仍保持运行。其用于对系统的电源状态（如上电、睡眠、唤醒等等）进行调整。</strong></p>
+<br>
+<h2 id="boot-rom-阶段">BOOT ROM 阶段</h2>
+<h3 id="基本流程-2">基本流程</h3>
+<ul>
+<li>读取 Boot ROM 中只读程序</li>
+<li>完成对 SD 卡，NAND，NOR，QSPI Flash 等外设的初始化</li>
+<li>读取 MIO [6:2] 的引脚配置情况，决定启动镜像位置（部分开发板引入了引脚启动机制，通过拨码开关进行控制引导）</li>
+<li>加载启动镜像至 OCM (On-Chip Memory RAM)，准备进入 FSBL 阶段</li>
+</ul>
+<h3 id="zynq-启动引脚配置">ZYNQ 启动引脚配置</h3>
+<p>根据 Xilinx ZYNQ 官方文档，ZYNQ Soc 使用 MIO [6:2] 进行启动配置。这 5 个引脚在硬件形式上表现为跳线帽，可以分别连接至 GND 或高电平，其作用如下：</p>
+<ul>
+<li>MIO[2] ：选择 JTAG 模式</li>
+<li>MIO[5:3] ：选择启动方式，包括 SD 卡，QSPI Flash 等</li>
+<li>MIO[6] ： PLL 使能控制</li>
+</ul>
+<p><strong>在无 JTAG 的模式下，ZYNQ 不支持从 PL 端直接启动配置，其配置阶段需要通过其 PS 端 ARM 核完成。在此之中，Boot ROM 阶段只会进行 PS 端部分配置，不会对 PL 端进行操作。</strong></p>
+<br>
+<h2 id="fsbl-阶段">FSBL 阶段</h2>
+<h3 id="fsbl-镜像文件">FSBL 镜像文件</h3>
+<ul>
+<li>fsbl.elf（ZYNQ Soc PS 端配置文件）</li>
+<li>bitstream（比特流文件，ZYNQ Soc PL 端配置文件）</li>
+<li>xxx.elf（ARM 裸跑的用户程序）</li>
+</ul>
+<h3 id="基本流程-3">基本流程</h3>
+<ul>
+<li>完成 PS 端的初始化 （<strong>fsbl.elf</strong>）
+<ul>
+<li>Soc 串口初始化</li>
+<li>PS 端控制器初始化，如 MIO，PLL，CLK，DDR 等</li>
+<li>禁止 L1 Data Cache</li>
+<li>注册 ARM 中断向量</li>
+</ul>
+</li>
+<li>加载 PL 端比特流文件，完成 PL 配置（<strong>bitstream</strong>）</li>
+<li>加载 SSBL 引导程序（<strong>加载操作系统文件</strong>）或是 ARM 裸跑程序至 DDR（<strong>xxx.elf</strong>）</li>
+<li>跳转执行 DDR 中 SSBL 或 ARM 裸跑程序</li>
+</ul>
+<h3 id="各设备sd-cardqspi-flashjtagfsbl-流程区别">各设备（SD Card/QSPI Flash/JTAG）FSBL 流程区别</h3>
+<ul>
+<li>对于 SD Card 以及 QSPI Flash 启动方式，其主要区别来自于基本流程中 2、3步骤中比特流文件等文件的位置，其中 SD Card 启动方式程序文件来源于 SD Card，而 QSPI Flash 启动方式程序则来源于 Flash。</li>
+<li>对于 JTAG 启动方式，其在完成基本流程中 1 后便直接退出，后续操作交由 JTAG 连接的主机去控制。</li>
+</ul>
+<br>
+<h2 id="ssbl-阶段">SSBL 阶段</h2>
+<p>SSBL 阶段为 ZYNQ Soc 启动引导过程中可选的一个阶段，常用于需要运行操作系统的场合。其作用是将 ZYNQ Soc 所需要的操作系统加载到 DDR 内存之中。</p>
+<br>
+<h2 id="arm-裸跑程序及加载-linux-对比">ARM 裸跑程序及加载 Linux 对比</h2>
+<br>
+<figure data-type="image" tabindex="1"><img src="https://lovelydayss.github.io/post-images/1668671219257.png" alt="" loading="lazy"></figure>
+<br>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://blog.csdn.net/main_476/article/details/119534329">zynq启动模式详解及启动过程详解</a><br>
+<a href="https://zhuanlan.zhihu.com/p/384895423">Zynq启动引导过程</a><br>
+<a href="https://www.cnblogs.com/ylsm-kb/p/9456534.html">Zynq系列FPGA如何固化bit文件到QSPI_Flash</a></p>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://lovelydayss.github.io/tag/VZycX--mz/" class="tag">
+                    ZYNQ
+                  </a>
+                
+                  <a href="https://lovelydayss.github.io/tag/8lFfZrjme/" class="tag">
+                    Linux
+                  </a>
+                
+                  <a href="https://lovelydayss.github.io/tag/OVfGKK_ss/" class="tag">
+                    FPGA
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://lovelydayss.github.io/post/bp-shen-jing-wang-luo-de-cshi-xian/">
+                  <h3 class="post-title">
+                    BP 神经网络的 C++实现 (待完成)
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+              
+                <div id="gitalk-container" data-aos="fade-in"></div>
+              
+
+              
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="enlarge-div" >
+      <div id="inner-div">
+        <img id="big-img" src=""/>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: 'abf19466ee80fd305fee',
+        clientSecret: '038a99cd18bc65921203a992cb39d0d2d7463bfd',
+        repo: 'lovelydayss.github.io',
+        owner: 'lovelydayss',
+        admin: ['lovelydayss'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

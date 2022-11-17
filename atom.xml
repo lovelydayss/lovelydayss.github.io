@@ -1,0 +1,381 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://lovelydayss.github.io</id>
+    <title>lovelydayss</title>
+    <updated>2022-11-17T08:40:01.595Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://lovelydayss.github.io"/>
+    <link rel="self" href="https://lovelydayss.github.io/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://lovelydayss.github.io/images/avatar.png</logo>
+    <icon>https://lovelydayss.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2022, lovelydayss</rights>
+    <entry>
+        <title type="html"><![CDATA[Makefile 基础 (待完成)]]></title>
+        <id>https://lovelydayss.github.io/post/makefile/</id>
+        <link href="https://lovelydayss.github.io/post/makefile/">
+        </link>
+        <updated>2022-11-15T13:10:18.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="makefile">makefile</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[ZYNQ 启动引导过程]]></title>
+        <id>https://lovelydayss.github.io/post/zynq-qi-dong-liu-cheng/</id>
+        <link href="https://lovelydayss.github.io/post/zynq-qi-dong-liu-cheng/">
+        </link>
+        <updated>2022-11-15T05:52:31.000Z</updated>
+        <content type="html"><![CDATA[<br>
+<h2 id="zynq-soc-启动基本流程">ZYNQ Soc 启动基本流程</h2>
+<p>根据 Xilinx ZYNQ 官方文档， ZYNQ Soc 启动主要经过如下：</p>
+<ul>
+<li>预配置阶段（Pre-configuration stage）</li>
+<li>配置阶段（Configuration stage）
+<ul>
+<li>BOOT ROM 阶段</li>
+<li>First Stage Bootloader（FSBL）阶段</li>
+<li>Second Stage Boot loader（SSBL）阶段</li>
+</ul>
+</li>
+<li>后配置阶段（Post-configuration stage）（即 SSBL 阶段）</li>
+</ul>
+<p>其流程大体可用如下框图描述：<br>
+<img src="https://lovelydayss.github.io/post-images/1668664479396.png" alt="" loading="lazy"></p>
+<br>
+<h2 id="预配置阶段">预配置阶段</h2>
+<p>ZYNQ Soc 的预配置阶段由 PMU（Platform Management Unit，平台管理单元）控制，主要用于管理模块的复位和唤醒，其相关代码保存在 PMU ROM 中。此外，在预配置阶段也需要进行 CSU（configuration security unit，配置安全单元）的复位。</p>
+<h3 id="pmu-操作">PMU 操作</h3>
+<ul>
+<li>归零低压域 LPD（low power domain）寄存器</li>
+<li>归零全电源域 FPD（full power domain）寄存器</li>
+<li>归零 PMU 的 RAM</li>
+<li>归零 PMU 处理器的 TLB 内存</li>
+<li>检查 LPD、AUX、专用IO等区域电压</li>
+<li>归零 CSU、LPD、FPD 的内存区</li>
+</ul>
+<h3 id="基本流程">基本流程</h3>
+<ul>
+<li>POR （Power-on reset）上电， PMU 初始化</li>
+<li>执行 PMU 的 ROM 中的预处理代码
+<ul>
+<li>初始化 PS Sysmon 单元和启动所需要的 PLL</li>
+<li>清除PMU RAM 和 CSU RAM区域</li>
+<li>验证 PLL 锁</li>
+<li>利用 PS Sysmon 验证 LPD、AUX、I/O 的范围</li>
+<li>清除低压域寄存器（LPD）和全电源域寄存器（FPD）</li>
+</ul>
+</li>
+<li>执行 CSU 复位</li>
+<li>加载 CSU ROM ，进入配置阶段</li>
+</ul>
+<p><strong>在 ZYNQ Soc 启动之后，PMU 仍保持运行。其用于对系统的电源状态（如上电、睡眠、唤醒等等）进行调整。</strong></p>
+<br>
+<h2 id="boot-rom-阶段">BOOT ROM 阶段</h2>
+<h3 id="基本流程-2">基本流程</h3>
+<ul>
+<li>读取 Boot ROM 中只读程序</li>
+<li>完成对 SD 卡，NAND，NOR，QSPI Flash 等外设的初始化</li>
+<li>读取 MIO [6:2] 的引脚配置情况，决定启动镜像位置（部分开发板引入了引脚启动机制，通过拨码开关进行控制引导）</li>
+<li>加载启动镜像至 OCM (On-Chip Memory RAM)，准备进入 FSBL 阶段</li>
+</ul>
+<h3 id="zynq-启动引脚配置">ZYNQ 启动引脚配置</h3>
+<p>根据 Xilinx ZYNQ 官方文档，ZYNQ Soc 使用 MIO [6:2] 进行启动配置。这 5 个引脚在硬件形式上表现为跳线帽，可以分别连接至 GND 或高电平，其作用如下：</p>
+<ul>
+<li>MIO[2] ：选择 JTAG 模式</li>
+<li>MIO[5:3] ：选择启动方式，包括 SD 卡，QSPI Flash 等</li>
+<li>MIO[6] ： PLL 使能控制</li>
+</ul>
+<p><strong>在无 JTAG 的模式下，ZYNQ 不支持从 PL 端直接启动配置，其配置阶段需要通过其 PS 端 ARM 核完成。在此之中，Boot ROM 阶段只会进行 PS 端部分配置，不会对 PL 端进行操作。</strong></p>
+<br>
+<h2 id="fsbl-阶段">FSBL 阶段</h2>
+<h3 id="fsbl-镜像文件">FSBL 镜像文件</h3>
+<ul>
+<li>fsbl.elf（ZYNQ Soc PS 端配置文件）</li>
+<li>bitstream（比特流文件，ZYNQ Soc PL 端配置文件）</li>
+<li>xxx.elf（ARM 裸跑的用户程序）</li>
+</ul>
+<h3 id="基本流程-3">基本流程</h3>
+<ul>
+<li>完成 PS 端的初始化 （<strong>fsbl.elf</strong>）
+<ul>
+<li>Soc 串口初始化</li>
+<li>PS 端控制器初始化，如 MIO，PLL，CLK，DDR 等</li>
+<li>禁止 L1 Data Cache</li>
+<li>注册 ARM 中断向量</li>
+</ul>
+</li>
+<li>加载 PL 端比特流文件，完成 PL 配置（<strong>bitstream</strong>）</li>
+<li>加载 SSBL 引导程序（<strong>加载操作系统文件</strong>）或是 ARM 裸跑程序至 DDR（<strong>xxx.elf</strong>）</li>
+<li>跳转执行 DDR 中 SSBL 或 ARM 裸跑程序</li>
+</ul>
+<h3 id="各设备sd-cardqspi-flashjtagfsbl-流程区别">各设备（SD Card/QSPI Flash/JTAG）FSBL 流程区别</h3>
+<ul>
+<li>对于 SD Card 以及 QSPI Flash 启动方式，其主要区别来自于基本流程中 2、3步骤中比特流文件等文件的位置，其中 SD Card 启动方式程序文件来源于 SD Card，而 QSPI Flash 启动方式程序则来源于 Flash。</li>
+<li>对于 JTAG 启动方式，其在完成基本流程中 1 后便直接退出，后续操作交由 JTAG 连接的主机去控制。</li>
+</ul>
+<br>
+<h2 id="ssbl-阶段">SSBL 阶段</h2>
+<p>SSBL 阶段为 ZYNQ Soc 启动引导过程中可选的一个阶段，常用于需要运行操作系统的场合。其作用是将 ZYNQ Soc 所需要的操作系统加载到 DDR 内存之中。</p>
+<br>
+<h2 id="arm-裸跑程序及加载-linux-对比">ARM 裸跑程序及加载 Linux 对比</h2>
+<br>
+<figure data-type="image" tabindex="1"><img src="https://lovelydayss.github.io/post-images/1668671219257.png" alt="" loading="lazy"></figure>
+<br>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://blog.csdn.net/main_476/article/details/119534329">zynq启动模式详解及启动过程详解</a><br>
+<a href="https://zhuanlan.zhihu.com/p/384895423">Zynq启动引导过程</a><br>
+<a href="https://www.cnblogs.com/ylsm-kb/p/9456534.html">Zynq系列FPGA如何固化bit文件到QSPI_Flash</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[BP 神经网络的 C++实现 (待完成)]]></title>
+        <id>https://lovelydayss.github.io/post/bp-shen-jing-wang-luo-de-cshi-xian/</id>
+        <link href="https://lovelydayss.github.io/post/bp-shen-jing-wang-luo-de-cshi-xian/">
+        </link>
+        <updated>2022-11-13T14:39:42.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="原理">原理</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Linux c/c++ 开发基础 (待完成)]]></title>
+        <id>https://lovelydayss.github.io/post/linux-cc-kai-fa-ji-chu/</id>
+        <link href="https://lovelydayss.github.io/post/linux-cc-kai-fa-ji-chu/">
+        </link>
+        <updated>2022-11-13T14:37:19.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="linux">linux</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[FPGA 开发基本流程（Vivado + Modelsim）]]></title>
+        <id>https://lovelydayss.github.io/post/fpga-kai-fa-ji-ben-liu-cheng-vivado/</id>
+        <link href="https://lovelydayss.github.io/post/fpga-kai-fa-ji-ben-liu-cheng-vivado/">
+        </link>
+        <updated>2022-11-13T10:49:52.000Z</updated>
+        <content type="html"><![CDATA[<br>
+<h2 id="基本流程框图">基本流程框图</h2>
+<figure data-type="image" tabindex="1"><img src="https://lovelydayss.github.io/post-images/1668509654229.png" alt="" loading="lazy"></figure>
+<br>
+<h2 id="创建工程">创建工程</h2>
+<p>首先打开 Vivado ，选择 create Project 创建新工程，大体流程跟随新建工程向导操作即可。此处仅对其中的几个步骤进行记录。</p>
+<p><img src="https://lovelydayss.github.io/post-images/1668411129678.PNG" alt="" loading="lazy"><br>
+在 Project Type 页面中罗列了常见工程类型。</p>
+<ul>
+<li>RTL Project 是指按照正常设计流程所选择的类型，其下的 Do not specify sources at this time 选项卡用于设置是否在创建工程向导的过程中添加设计文件（勾选后，则不创建或者添加设计文件）</li>
+<li>Post-synthesis Project 在导入第三方工具所产生的综合后网表时才选择</li>
+<li>I/O Planning Project 一般用于在开始 RTL 设计之前，创建一个用于早期 IO 规划和器件开发的空工程</li>
+<li>Imported Project 用于从 ISE、XST 或 Synopsys Synplify 导入现有的工程源文件</li>
+<li>Example Project 是指创建一个 Vivado 提供的工程模板</li>
+</ul>
+<p><img src="https://lovelydayss.github.io/post-images/1668412355883.PNG" alt="" loading="lazy"><br>
+<img src="https://lovelydayss.github.io/post-images/1668412361148.PNG" alt="" loading="lazy"><br>
+在 Add Sources 和 Add Constraints 中可以添加设计以及约束文件，也可以等待项目创建后再进行添加。</p>
+<p><img src="https://lovelydayss.github.io/post-images/1668412283602.PNG" alt="" loading="lazy"><br>
+在 Default Part 页面中，可以根据开发板芯片型号进行选择，此处使用 zynq 7020，故选择型号 xc7z020clg400-2。</p>
+<br>
+<h2 id="vivado-整体界面">Vivado 整体界面</h2>
+<figure data-type="image" tabindex="2"><img src="https://lovelydayss.github.io/post-images/1668412931269.PNG" alt="" loading="lazy"></figure>
+<ol>
+<li>
+<p>Flow Navigator。Flow Navigator 提供对命令和工具的访问，其包含从设计输入到生成比特流的整个过程。 在点击了相应的命令时，整个 Vivado 工程主界面的各个子窗口可能会作出相应的更改。</p>
+</li>
+<li>
+<p>数据窗口。默认情况下，Vivado IDE 的这个区域显示的是设计源文件和数据相关的信息。</p>
+<ul>
+<li>Sources ：显示层次结构（Hierarchy）、IP 源文件（IP Sources）、库（Libraries）和编译顺序（Compile Order）的视图</li>
+<li>Netlist ：提供分析后的（elaborated）或综合后的（synthesized）逻辑设计的分层视图</li>
+</ul>
+</li>
+<li>
+<p>Properties ：显示有关所选逻辑对象或器件资源的特性信息。</p>
+</li>
+<li>
+<p>Workspace：工作区显示了具有图形界面的窗口和需要更多屏幕空间的窗口，包括：</p>
+<ul>
+<li>Project Summary，提供了当前工程的摘要信息，它在运行设计命令时动态地更新，用于显示和编辑基于文本的文件和报告的 Text Editor</li>
+<li>原理图（Schematic）窗口</li>
+<li>器件（Device）窗口</li>
+<li>封装（Package）窗口</li>
+</ul>
+</li>
+<li>
+<p>结果窗口区域：在 Vivado IDE 中所运行的命令的状态和结果，显示在结果窗口区域中，这是一组子窗口的集合。在运行命令、生成消息、创建日志文件和报告文件时，相关信息将显示在此区域。默认情况下，此区域包括以下窗口：</p>
+<ul>
+<li>Tcl Console：允许您输入 Tcl 命令，并查看以前的命令和输出的历史记录</li>
+<li>Messages：显示当前设计的所有消息，按进程和严重性分类，包括“Error”、“Critical Warning”、“Warning”等等</li>
+<li>Log：显示由综合、实现和仿真 run 创建的日志文件</li>
+<li>Reports：提供对整个设计流程中的活动 run 所生成的报告的快速访问</li>
+<li>Designs Runs：管理当前工程的 runs</li>
+</ul>
+</li>
+<li>
+<p>主工具栏：主工具栏提供了对 Vivado IDE 中最常用命令的单击访问。</p>
+</li>
+<li>
+<p>主菜单：主菜单栏提供对 Vivado IDE 命令的访问。</p>
+</li>
+<li>
+<p>窗口布局（Layout）选择器：Vivado IDE 提供预定义的窗口布局，以方便设计过程中的各种任务。</p>
+</li>
+</ol>
+<br>
+<h2 id="设计输入">设计输入</h2>
+<p>在设计输入阶段需要新建一个 Verilog 顶层文件，此后将设计的代码输入 Verilog 顶层文件中。</p>
+<p>在 Source 窗口中点击 + 符号，此后在 Add Sources 界面中选择 Add or create design sources 选项，此后根据文件添加向导进行文件创建或添加即可。</p>
+<figure data-type="image" tabindex="3"><img src="https://lovelydayss.github.io/post-images/1668414137711.PNG" alt="" loading="lazy"></figure>
+<p>在完成文件创建后会弹出一个定义模块的页面，用于设置源文件的模块名称和端口列表。Vivado 会根据在此窗口中的设置，自动地在 HDL 源文件中写入相应的 verilog 语句。（手动输入代码可以不作任何设置）</p>
+<figure data-type="image" tabindex="4"><img src="https://lovelydayss.github.io/post-images/1668414838508.PNG" alt="" loading="lazy"></figure>
+<br>
+<h2 id="分析">分析</h2>
+<p>在代码输入以及设计分析阶段，Vivado 软件会检查代码，如果代码出现语法错误，那么 Vivado 软件将会给出相关错误提示。</p>
+<p>选择 Flow Navigator 中的 RTL ANALYSIS -&gt; Open Elaborated Design 即可开始分析过程，在此过程中 Vivado 会编译 RTL 源文件并进行全面的语法检查，并在 Messages 窗口中给出相应的 Error 和 Warning 。</p>
+<figure data-type="image" tabindex="5"><img src="https://lovelydayss.github.io/post-images/1668415806995.PNG" alt="" loading="lazy"></figure>
+<p>此后窗口布局发生了变化，新增了 Schematic（原理图）、Netlist（网表）等窗口。此时，底部的 Messages 窗口会显示分析阶段产生的消息。</p>
+<figure data-type="image" tabindex="6"><img src="https://lovelydayss.github.io/post-images/1668415943861.PNG" alt="" loading="lazy"></figure>
+<p>此后可以选择 Layout 选项中选择  I/O Planing 选项，在下方的 I/O Ports 窗口中即可进行 IO 的分配（此处也可以在综合之后再统一输入时序约束和 IO 引脚的物理约束）</p>
+<figure data-type="image" tabindex="7"><img src="https://lovelydayss.github.io/post-images/1668416201471.PNG" alt="" loading="lazy"></figure>
+<br>
+<h2 id="综合">综合</h2>
+<p>在 FPGA 设计中，综合（Synthesis）就是将 RTL 设计转变为由 FPGA 器件中的查找表（LUT）、触发器（FF）等各种底层电路单元所组成的网表，在这个过程中综合器也会对设计进行优化，例如，删除多余的逻辑等等。</p>
+<p>选择 Flow Navigator 中的 Run Synthesis，开始对代码的综合。<br>
+<img src="https://lovelydayss.github.io/post-images/1668416668613.PNG" alt="" loading="lazy"></p>
+<br>
+<h2 id="约束输入">约束输入</h2>
+<p>约束表达了设计者期望满足的时序要求，规范了设计的时序行为，并在综合、实现阶段来指导工具进行布局、布线，工具会按照你的约束尽量去努力实现以满足时序要求，并在时序报告中给出结果。常用的约束包括时序约束、引脚约束等等。</p>
+<ul>
+<li>时序约束（Timing Constraints）用来描述设计人员对时序的要求，比如时钟频率，输入输出的延时等，以满足设计的时序要求。</li>
+<li>IO 管脚约束是对端口的引脚位置和电平标准进行约束</li>
+</ul>
+<p>约束文件的输入与设计文件的输入基本一致，在 Add Source窗口中选择 Add or create constraints 选项，此后根据文件创建指导进行操作即可。<br>
+<img src="https://lovelydayss.github.io/post-images/1668417072218.PNG" alt="" loading="lazy"></p>
+<br>
+<h2 id="设计实现">设计实现</h2>
+<p>在完成约束输入后即可对整个设计进行实现了，其包括布局和布线等操作。</p>
+<p>选择 Flow Navigator 中的 Run Implementation，开始设计的实现。<br>
+<img src="https://lovelydayss.github.io/post-images/1668417315010.PNG" alt="" loading="lazy"></p>
+<br>
+<h2 id="比特流文件生成">比特流文件生成</h2>
+<p>在设计实现成功完成后，即可进行比特流文件生成。</p>
+<p>选择 Flow Navigator 中的 Generate Bitstream，开始比特流文件的生成。<br>
+<img src="https://lovelydayss.github.io/post-images/1668417512529.PNG" alt="" loading="lazy"></p>
+<br>
+<h2 id="下载比特流文件至开发板">下载比特流文件至开发板</h2>
+<p>在纯 FPGA 开发中使用 JTAG 将比特流文件下载进行调试即可。zynq 启动模式及具<br>
+体流程详见另一篇博客 [zynq 启动流程] (https://lovelydayss.github.io/post/zynq-qi-dong-liu-cheng/)</p>
+<p>选择 Flow Navigator 中的 Open Hardware Manager，开始比特流文件的生成。<br>
+<img src="https://lovelydayss.github.io/post-images/1668500862297.PNG" alt="" loading="lazy"></p>
+<p>此后使用 Xlinx 下载器将电脑和开发板 JTAG 接口连接起来，设置开发板启动模式为 JTAG ，通电启动。此后选择 Hardware Manager 中的 Auto Connect 选项即可完成链接。<br>
+<img src="https://lovelydayss.github.io/post-images/1668500999887.PNG" alt="" loading="lazy"></p>
+<p>完成链接后选择 Hardware 上侧 Program Device ，在弹出窗口中选择 Program 即可完成工程中比特流文件的下载与运行。</p>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="http://www.openedv.com/docs/boards/fpga/zdyz_linhanz(V2).html">正点原子领航者 FPGA 开发指南</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Git 基本原理及项目开发流程 (待完成)]]></title>
+        <id>https://lovelydayss.github.io/post/git-ji-ben-yuan-li-ji-kai-fa-liu-cheng/</id>
+        <link href="https://lovelydayss.github.io/post/git-ji-ben-yuan-li-ji-kai-fa-liu-cheng/">
+        </link>
+        <updated>2022-11-05T12:39:43.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="git-仓库结构">Git 仓库结构</h1>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Markdown 基本操作 (待完成)]]></title>
+        <id>https://lovelydayss.github.io/post/markdown-ji-ben-cao-zuo/</id>
+        <link href="https://lovelydayss.github.io/post/markdown-ji-ben-cao-zuo/">
+        </link>
+        <updated>2022-11-03T13:32:18.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="markdown">markdown</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[梨米特复变函数&积分变换速成课笔记 (待完成)]]></title>
+        <id>https://lovelydayss.github.io/post/li-mi-te-fu-bian-han-shu-su-cheng-ke-bi-ji/</id>
+        <link href="https://lovelydayss.github.io/post/li-mi-te-fu-bian-han-shu-su-cheng-ke-bi-ji/">
+        </link>
+        <updated>2022-11-02T03:23:47.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="class">class</h2>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Git & Github 常用操作及问题整理 (待完成)]]></title>
+        <id>https://lovelydayss.github.io/post/git-and-github-chang-yong-cao-zuo-ji-wen-ti-zheng-li/</id>
+        <link href="https://lovelydayss.github.io/post/git-and-github-chang-yong-cao-zuo-ji-wen-ti-zheng-li/">
+        </link>
+        <updated>2022-11-02T03:11:16.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="git-基本操作">Git 基本操作</h1>
+<h2 id="主要概念">主要概念</h2>
+<h2 id="常用操作">常用操作</h2>
+<h1 id="问题整理">问题整理</h1>
+<h2 id="问题描述">问题描述</h2>
+<h2 id="原因">原因</h2>
+<h2 id="解决方法">解决方法</h2>
+<h2 id="分支合并">分支合并</h2>
+<pre><code>git merge -s recursive -X theirs --allow-unrelated-histories  origin/Gridea
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Gridea 配置及手动上传]]></title>
+        <id>https://lovelydayss.github.io/post/gridea-shang-chuan-github-zhong-yin-shang-chuan-shi-bai-dao-zhi-git-ban-ben-hun-luan-jie-jue/</id>
+        <link href="https://lovelydayss.github.io/post/gridea-shang-chuan-github-zhong-yin-shang-chuan-shi-bai-dao-zhi-git-ban-ben-hun-luan-jie-jue/">
+        </link>
+        <updated>2022-11-02T03:02:01.000Z</updated>
+        <content type="html"><![CDATA[ <br>
+<h2 id="基本问题描述">基本问题描述</h2>
+<p>因为 GitHub 网络不稳定问题，在使用 Gridea 同步进行上传时会存在上传失败情况<br>
+<img src="https://lovelydayss.github.io/post-images/1667460589946.jpg" alt="" loading="lazy"></p>
+<br>
+<h2 id="解决方案">解决方案</h2>
+<p>简单理解，GitHub Pages 即为每一个 GitHub 用户提供一个免费的网址，该网址使用 GitHub Pages 对应库中的资源进行生成页面。在博客制作过程中 Gridea 扮演了将用户制作的 Markdown 文档渲染成 GitHub Pages 所需资源的角色。</p>
+<p>查阅<a href="https://github.com/getgridea/gridea/releases"> Gridea 项目文档</a> 发现，Gridea 在 0.9.3 版本更新中对博客本地存储结构做了改变。<br>
+<img src="https://lovelydayss.github.io/post-images/1667461371927.PNG" alt="" loading="lazy"></p>
+<p>即 Gridea 渲染后文件将会存储在文件夹 ～/.gridea/output 中：其文件夹内容：<br>
+<img src="https://lovelydayss.github.io/post-images/1667461701999.PNG" alt="" loading="lazy"></p>
+<p>对 Gridea 功能进行尝试，发现其预览功能会对当前文件进行渲染，并将渲染后资源存储于文件夹 ～/.gridea/output 中（该操作会清空文件夹中原有 Git 库信息）。而同步功能则会在渲染基础上，根据系统预设远程链接信息重新创建 Git 库，同时将其整合成一个 commit 提交至远程 GitHub 仓库。</p>
+<p>由于同步功能因为网络不稳定问题会存在上传失败情况（同时提交时会覆盖此前 commit 记录），故考虑不使用同步功能，只使用预览功能执行渲染（即仅将 Gridea 客户端作为静态渲染器），待渲染完成后再对文件夹 ～/.gridea/output 中文件资源使用 <a href="https://git-scm.com/">Git</a>  手动提交至远程仓库。</p>
+<p><strong>更新：后续发现使用预览功能时，Gridea 渲染得到页面中会使用本地 url，从而导致在GitHub Pages 博客中因各跳转链接为本地 url 而无法正常跳转到各子页面，故在使用时仍需选择同步功能进行渲染，为防止意料之外的上传成功，此处需在选择同步按钮进行渲染时断开网络或直接修改远程设置中令牌为错误令牌</strong></p>
+<br>
+<h2 id="手动上传过程">手动上传过程</h2>
+<p>首先点击预览按键进行渲染，渲染后生成文件位于 ～/.gridea/output 文件夹<br>
+<img src="https://lovelydayss.github.io/post-images/1667476510195.PNG" alt="" loading="lazy"></p>
+<p>此后使用 Git 进行手动上传，使用 VS code 打开～/.gridea/output 文件夹，此后选择 终端 -&gt; 新建终端打开终端。（此处使用 VS code 终端进行操作，其他命令行工具亦可）<br>
+<img src="https://lovelydayss.github.io/post-images/1667476810635.PNG" alt="" loading="lazy"></p>
+<p><strong>更新：由于使用同步功能会在 output 文件夹下创建 Git 仓库，故此处应先删除现有本地库后再重新进行初始化</strong></p>
+<p>执行命令行语句删除本地仓库，即删除 output/.git 文件夹（此处为 win10 powershell 指令操作）</p>
+<pre><code class="language-powershell">    Remove-item ./.git
+</code></pre>
+<p>创建本地 Git 库，并将资源推送到本地库当前分支（此处 xx 即为该次提交名称）</p>
+<pre><code class="language-powershell">    git init            
+    git add .    
+    git commit -m &quot;xx&quot;          
+</code></pre>
+<p>链接远程 GitHub 库 (此处 ~ 指代 GitHub 库名称)，此处可能需要进行登录操作</p>
+<pre><code class="language-powershell">    git remote add  origin  ~.git     
+</code></pre>
+<p>重命名当前分支，此处我将更新的分支统一命名为 Gridea，其余命名亦可</p>
+<pre><code class="language-powershell">    git branch -m master Gridea     
+</code></pre>
+<p>拉取远程库中最新版本，并将其设为当前分支</p>
+<pre><code class="language-powershell">    git fetch origin master:master
+    git checkout 'master'   
+</code></pre>
+<p>对本地分支进行合并，将 Gridea 分支（本地最新分支）合并进 master 分支（远端拉取得到分支），此处采用 theirs 合并策略，即当出现冲突时以 Gridea 分支（本地最新分支）内容为准进行修改</p>
+<pre><code class="language-powershell">    git merge -s recursive -X theirs --allow-unrelated-histories  Gridea   
+</code></pre>
+<p>提交至远端库</p>
+<pre><code class="language-powershell">    git push -u origin master  
+</code></pre>
+<p>输出参考<br>
+<img src="https://lovelydayss.github.io/post-images/1667482074363.png" alt="" loading="lazy"><br>
+<img src="https://lovelydayss.github.io/post-images/1667482125438.png" alt="" loading="lazy"></p>
+<br>
+<p>至此，手动上传已经完成，至于如何使用 Gridea + GitHub Pages 构建博客，已经由很多的博客做过了，此处不再赘述。详情可参考 <a href="https://zhuanlan.zhihu.com/p/71681116">Gridea 上手教程——小白也可以用的 GitHub Pages 搭建工具</a></p>
+<br>
+<br>
+<br>
+<h2 id="参考资料">参考资料</h2>
+<p><a href="https://sonatta.top/post/Ux6xKOeOx/">Gridea 同步失败？谈谈我的解决办法</a></p>
+]]></content>
+    </entry>
+</feed>
