@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://lovelydayss.github.io/favicon.ico?v=1668520489778">
+<link rel="shortcut icon" href="https://lovelydayss.github.io/favicon.ico?v=1668674398879">
 <link rel="stylesheet" href="https://lovelydayss.github.io/styles/main.css">
 
 
@@ -24,14 +24,19 @@
 
 
 
-    <meta name="description" content=" 
+    <!--<meta name="description" content=" 
 基本问题描述
 因为 GitHub 网络不稳定问题，在使用 Gridea 同步进行上传时会存在上传失败情况
 
 
 解决方案
-简单理解，GitHub Pages 即为每一个 GitHub 用户提供一个免费的网址，该网址使用 GitHub Pa..." />
+简单理解，GitHub Pages 即为每一个 GitHub 用户提供一个免费的网址，该网址使用 GitHub Pa..." /> -->
     <meta name="keywords" content="Gridea" />
+
+    <script src="https://lovelydayss.github.io/styles/static/js/jquery/jquery_3.6.0.js"></script>
+    <script src="https://lovelydayss.github.io/styles/static/js/post.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="https://lovelydayss.github.io/styles/static/css/post.css">
   </head>
   <body>
     <div id="app" class="main">
@@ -40,7 +45,7 @@
   <div class="top-container" data-aos="fade-right">
     <div class="top-header-container">
       <a class="site-title-container" href="https://lovelydayss.github.io">
-        <img src="https://lovelydayss.github.io/images/avatar.png?v=1668520489778" class="site-logo">
+        <img src="https://lovelydayss.github.io/images/avatar.png?v=1668674398879" class="site-logo">
         <h1 class="site-title">lovelydayss</h1>
       </a>
       <div class="menu-btn" @click="menuVisible = !menuVisible">
@@ -188,6 +193,12 @@
       </div>
     </div>
 
+    <div id="enlarge-div" >
+      <div id="inner-div">
+        <img id="big-img" src=""/>
+      </div>
+    </div>
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 <script type="application/javascript">
 
@@ -202,11 +213,6 @@ var app = new Vue({
 
 </script>
 
-
-  <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@11.5.1/build/highlight.min.js"></script>
-  <script>
-    hljs.initHighlightingOnLoad()
-  </script>
 
 
 
