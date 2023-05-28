@@ -3,7 +3,7 @@ let total = 0
 let nowNum = 0
 let items = []
 let page = 1
-let Url = 'http://www.linears.cc:5230/api/memo?creatorId=1&tag=说说&limit=10'
+let Url = 'http://124.221.11.245:5230/api/memo?creatorId=1&tag=说说&limit=10'
 
 
 window.addEventListener('DOMContentLoaded', () => {
