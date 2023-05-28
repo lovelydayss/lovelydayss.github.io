@@ -33,6 +33,8 @@ function pageUpdate() {
         bibi.removeChild(document.getElementById('more'))
     } catch (error) { }
 
+    bib.innerHTML += '<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"></meta>'
+
     bibi.innerHTML += '<div id="bb_loading"><img src="/assets/loading3.gif" alt="bb_loading"></div>' // bb_loading图片可以f12在我网站源码下载，也可以使用其他图片。
 
     fetch(Url).then(res => res.json()).then(data => {
