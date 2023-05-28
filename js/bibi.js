@@ -3,7 +3,7 @@ let total = 0
 let nowNum = 0
 let items = []
 let page = 1
-let Url = 'https://kkapi.fomal.cc/api/ispeak?author=6319fedef46fae97dcfa5ee2&page=' // 记住替换为你的API链接
+let Url = 'http://www.linears.cc:5230/api/memo?creatorId=1&tag=说说&limit=10'
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -24,7 +24,7 @@ function getNew() {
         items = res.data.items
         nowNum += items.length
         if (page == 1) {
-            document.querySelector('.bb-info').innerHTML = '<svg style="width:1.20em;height:1.20em;top:5px;fill:currentColor;overflow:hidden;position:relative"><use xlink:href="#icon-chat"></svg> 站长的唠叨(' + total + ')'
+            document.querySelector('.bb-info').innerHTML = '<svg style="width:1.20em;height:1.20em;top:5px;fill:currentColor;overflow:hidden;position:relative"><use xlink:href="#icon-chat"></svg> 站长的碎碎念(' + total + ')'
         }
         page += 1
     }).then(() => {
