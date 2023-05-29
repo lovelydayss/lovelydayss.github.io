@@ -15,11 +15,13 @@
           
           <category> C/C++ </category>
           
+          <category> 演示 </category>
+          
           <category> Java </category>
           
-          <category> 计算机基础 </category>
-          
           <category> 杂七杂八 </category>
+          
+          <category> 计算机基础 </category>
           
       </categories>
       
@@ -53,6 +55,8 @@
       <categories>
           
           <category> 演示 </category>
+          
+          <category> 杂七杂八 </category>
           
       </categories>
       

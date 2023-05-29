@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lovelydayss.github.io/site/charts/index.html</loc>
+    
+    <lastmod>2023-05-29</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://lovelydayss.github.io/static/memos.json</loc>
     
     <lastmod>2023-05-28</lastmod>
@@ -82,19 +91,10 @@
     <priority>0.6</priority>
   </url>
   
-  <url>
-    <loc>https://lovelydayss.github.io/site/echarts/index.html</loc>
-    
-    <lastmod>2022-09-10</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
 
   <url>
     <loc>https://lovelydayss.github.io/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-05-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -102,42 +102,42 @@
   
   <url>
     <loc>https://lovelydayss.github.io/tags/C/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lovelydayss.github.io/tags/test-1/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lovelydayss.github.io/tags/C-1/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lovelydayss.github.io/tags/test-2/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lovelydayss.github.io/tags/Markdown/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lovelydayss.github.io/tags/%E5%A4%96%E6%8C%82%E6%A0%87%E7%AD%BE/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
@@ -146,35 +146,35 @@
   
   <url>
     <loc>https://lovelydayss.github.io/categories/C-C/</loc>
-    <lastmod>2023-05-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lovelydayss.github.io/categories/Java/</loc>
-    <lastmod>2023-05-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lovelydayss.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</loc>
-    <lastmod>2023-05-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lovelydayss.github.io/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>https://lovelydayss.github.io/categories/%E6%BC%94%E7%A4%BA/</loc>
-    <lastmod>2023-05-28</lastmod>
+    <lastmod>2023-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lovelydayss.github.io/categories/Java/</loc>
+    <lastmod>2023-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lovelydayss.github.io/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/</loc>
+    <lastmod>2023-05-29</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lovelydayss.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/</loc>
+    <lastmod>2023-05-29</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

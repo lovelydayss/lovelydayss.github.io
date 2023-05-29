@@ -32,11 +32,13 @@
     
     <category term="C/C++" scheme="https://lovelydayss.github.io/categories/C-C/"/>
     
+    <category term="演示" scheme="https://lovelydayss.github.io/categories/%E6%BC%94%E7%A4%BA/"/>
+    
     <category term="Java" scheme="https://lovelydayss.github.io/categories/Java/"/>
     
-    <category term="计算机基础" scheme="https://lovelydayss.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
-    
     <category term="杂七杂八" scheme="https://lovelydayss.github.io/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"/>
+    
+    <category term="计算机基础" scheme="https://lovelydayss.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"/>
     
     
     <category term="C++" scheme="https://lovelydayss.github.io/tags/C/"/>
@@ -66,6 +68,8 @@
     
     
     <category term="演示" scheme="https://lovelydayss.github.io/categories/%E6%BC%94%E7%A4%BA/"/>
+    
+    <category term="杂七杂八" scheme="https://lovelydayss.github.io/categories/%E6%9D%82%E4%B8%83%E6%9D%82%E5%85%AB/"/>
     
     
     <category term="Markdown" scheme="https://lovelydayss.github.io/tags/Markdown/"/>
